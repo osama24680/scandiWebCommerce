@@ -1,0 +1,30 @@
+.ProductCart {
+    width: 28%;
+    text-align: left;
+    cursor: pointer;
+
+    .productLink {
+        img {
+            margin: 0;
+        }
+
+        h3,
+        p {
+            margin-left: 60px;
+        }
+
+        h3 {
+            font-style: normal;
+            font-weight: 300;
+            font-size: 18px;
+            line-height: 160%;
+            color: var(--heavy__gray)
+        }
+
+        p {
+            color: var(--black);
+            margin-top: 5px;
+            font-weight: 600;
+        }
+    }
+}
