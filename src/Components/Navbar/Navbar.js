@@ -4,26 +4,17 @@ import logo from "../../assets/logo.png"
 import cart from "../../assets/Cart.png"
 import { StoreContext } from "../../Context/Store"
 import { Link, Navigate } from "react-router-dom"
+import { ToastContainer } from 'react-toastify';
 export default class Navbar extends Component {
-
-
-    render() {
-        let userName = ""
+    userName = ""
+    componentDidMount() {
         if (localStorage.getItem("userScandiwebCommerce")) {
             let data = JSON.parse(localStorage.getItem("userScandiwebCommerce"))
-            userName = data.first_name
+            this.userName = data.first_name
         }
+    }
+    render() {
         const ctx = this.context
-
-        const printHello = () => {
-            if (ctx.successLogout) {
-                return <Navigate to="/login" />
-            }
-            else {
-                return "LogOut"
-            }
-        }
-
         return (
 
 
@@ -49,8 +40,8 @@ export default class Navbar extends Component {
                     </div>
                     <ul className="navbar__options">
                         <li className="nameOption">
-                        {!ctx.welcome? "Welcome" :` Hello ${userName}` }
-                            
+                            {!ctx.welcome ? "Welcome" : ` Hello ${this.userName}`}
+
                         </li>
                         <li onClick={() => ctx.handleDollarShow()} >
                             $
@@ -80,29 +71,29 @@ export default class Navbar extends Component {
                                                     <p>Size:</p>
                                                     <div className="listOfSizes">
                                                         <p
-                                                            onClick={(e) => ctx.handleActiveSize(e)}
-                                                            className={`${ctx.datasetSize === "xs" && "borderActive"}`}
+                                                            onClick={(e) => ctx.handleActiveSize(e, item, "array")}
+                                                            className={`${item.size === "xs" && "borderActive"}`}
                                                             data-size="xs"
                                                         >
                                                             XS
                                                         </p>
                                                         <p
-                                                            onClick={(e) => ctx.handleActiveSize(e)}
-                                                            className={`${ctx.datasetSize === "s" && "borderActive"}`}
+                                                            onClick={(e) => ctx.handleActiveSize(e, item, "array")}
+                                                            className={`${item.size === "s" && "borderActive"}`}
                                                             data-size="s"
                                                         >
                                                             S
                                                         </p>
                                                         <p
-                                                            onClick={(e) => ctx.handleActiveSize(e)}
-                                                            className={`${ctx.datasetSize === "m" && "borderActive"}`}
+                                                            onClick={(e) => ctx.handleActiveSize(e, item, "array")}
+                                                            className={`${item.size === "m" && "borderActive"}`}
                                                             data-size="m"
                                                         >
                                                             M
                                                         </p>
                                                         <p
-                                                            onClick={(e) => ctx.handleActiveSize(e)}
-                                                            className={`${ctx.datasetSize === "l" && "borderActive"}`}
+                                                            onClick={(e) => ctx.handleActiveSize(e, item, "array")}
+                                                            className={`${item.size === "l" && "borderActive"}`}
                                                             data-size="l"
                                                         >
                                                             L
@@ -114,20 +105,23 @@ export default class Navbar extends Component {
                                                     <p>Color:</p>
                                                     <div className="listOfColor">
                                                         <p
-                                                            onClick={(e) => ctx.handleshadowColor(e)} data-color="red"
-                                                            className={`${ctx.datasetColor === "red" && "shadowActive"}`}
+                                                            onClick={(e) => ctx.handleshadowColor(e, item, "array")}
+                                                            data-color="red"
+                                                            className={`${item.color === "red" && "shadowActive"}`}
                                                         >
 
                                                         </p>
                                                         <p
-                                                            onClick={(e) => ctx.handleshadowColor(e)} data-color="gold"
-                                                            className={`${ctx.datasetColor === "gold" && "shadowActive"}`}
+                                                            onClick={(e) => ctx.handleshadowColor(e, item, "array")}
+                                                            data-color="gold"
+                                                            className={`${item.color === "gold" && "shadowActive"}`}
                                                         >
 
                                                         </p>
                                                         <p
-                                                            onClick={(e) => ctx.handleshadowColor(e)} data-color="aqua"
-                                                            className={`${ctx.datasetColor === "aqua" && "shadowActive"}`}
+                                                            onClick={(e) => ctx.handleshadowColor(e, item, "array")}
+                                                            data-color="aqua"
+                                                            className={`${item.color === "aqua" && "shadowActive"}`}
                                                         >
 
                                                         </p>
@@ -155,7 +149,7 @@ export default class Navbar extends Component {
                                     </div>
                                     <div className="buttonsCartNav">
                                         <Link to="cart" onClick={() => ctx.handleCartShow()}>view bag</Link>
-                                        <Link to="">check out</Link>
+                                        <a href="" onClick={(e)=>ctx.checkOut(e)}>check out</a>
                                     </div>
                                 </div>
                             </ul>
@@ -167,11 +161,12 @@ export default class Navbar extends Component {
                             </>
 
                         ) : (
-                            <li onClick={()=>ctx.logout()}><Link to="/">Logout</Link></li>
+                            <li onClick={() => ctx.logout()}><Link to="/">Logout</Link></li>
                         )}
-
+                            
                     </ul>
                 </div>
+                <ToastContainer />
             </div>
 
 

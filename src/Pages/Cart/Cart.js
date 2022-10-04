@@ -24,29 +24,29 @@ export default class Cart extends Component {
                                         <p>SIZE:</p>
                                         <ul>
                                             <li
-                                                onClick={(e) => ctx.handleActiveSize(e)}
-                                                className={`${ctx.datasetSize === "xs" && "borderActive"}`}
+                                                onClick={(e) => ctx.handleActiveSize(e, item, "array")}
+                                                className={`${item.size === "xs" && "borderActive"}`}
                                                 data-size="xs"
                                             >
                                                 XS
                                             </li>
                                             <li
-                                                onClick={(e) => ctx.handleActiveSize(e)}
-                                                className={`${ctx.datasetSize === "s" && "borderActive"}`}
+                                                onClick={(e) => ctx.handleActiveSize(e, item, "array")}
+                                                className={`${item.size === "s" && "borderActive"}`}
                                                 data-size="s"
                                             >
                                                 S
                                             </li>
                                             <li
-                                                onClick={(e) => ctx.handleActiveSize(e)}
-                                                className={`${ctx.datasetSize === "m" && "borderActive"}`}
+                                                onClick={(e) => ctx.handleActiveSize(e, item, "array")}
+                                                className={`${item.size === "m" && "borderActive"}`}
                                                 data-size="m"
                                             >
                                                 M
                                             </li>
                                             <li
-                                                onClick={(e) => ctx.handleActiveSize(e)}
-                                                className={`${ctx.datasetSize === "l" && "borderActive"}`}
+                                                onClick={(e) => ctx.handleActiveSize(e, item, "array")}
+                                                className={`${item.size === "l" && "borderActive"}`}
                                                 data-size="l"
                                             >
                                                 L
@@ -58,20 +58,23 @@ export default class Cart extends Component {
                                         <p>COLOR:</p>
                                         <ul>
                                             <li
-                                                onClick={(e) => ctx.handleshadowColor(e)} data-color="red"
-                                                className={`${ctx.datasetColor === "red" && "shadowActive"}`}
+                                                onClick={(e) => ctx.handleshadowColor(e, item, "array")}
+                                                data-color="red"
+                                                className={`${item.color === "red" && "shadowActive"}`}
                                             >
 
                                             </li>
                                             <li
-                                                onClick={(e) => ctx.handleshadowColor(e)} data-color="gold"
-                                                className={`${ctx.datasetColor === "gold" && "shadowActive"}`}
+                                                onClick={(e) => ctx.handleshadowColor(e, item, "array")}
+                                                data-color="gold"
+                                                className={`${item.color === "gold" && "shadowActive"}`}
                                             >
 
                                             </li>
                                             <li
-                                                onClick={(e) => ctx.handleshadowColor(e)} data-color="aqua"
-                                                className={`${ctx.datasetColor === "aqua" && "shadowActive"}`}
+                                                onClick={(e) => ctx.handleshadowColor(e, item, "array")}
+                                                data-color="aqua"
+                                                className={`${item.color === "aqua" && "shadowActive"}`}
                                             >
 
                                             </li>
@@ -100,10 +103,10 @@ export default class Cart extends Component {
 
                     <div className="Cart__elements-total">
                         <p>Price:<span> ${ctx.price}</span>  </p>
-                        <p>tax 21%: <span> ${ctx.tal}</span>  </p>
+                        <p>tax 21%: <span> ${ctx.taxs}</span>  </p>
                         <p>Quantity: <span> {ctx.numberOfItems}</span>  </p>
                         <p>Total: <span> ${ctx.totalPrice} </span> </p>
-                        <button onClick={()=>ctx.checkOut()}>Order</button>
+                        <button onClick={(e) => ctx.checkOut(e)}>Order</button>
                     </div>
                 </div>
                 <ToastContainer />

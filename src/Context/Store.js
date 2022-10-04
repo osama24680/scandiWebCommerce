@@ -1,5 +1,7 @@
+
 import React, { Component, createContext } from 'react'
 import { toast } from 'react-toastify';
+import { data } from "../Data"
 import joi from "joi"
 import axios from "axios"
 // import { Navigate, useNavigate, Redirect } from "react-router-dom";
@@ -8,52 +10,56 @@ import { Navigate } from "react-router-dom"
 
 export const StoreContext = createContext(0)
 
-let cartData;
-if(localStorage.getItem("storageCartList") !==null){
-    cartData=JSON.parse(localStorage.getItem("questionsItems"))
-}else{
-    cartData=[]
-}
-
 
 class StoreContextProvider extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            active_state: "Women",
+            show_dollar: false,
+            show_cart: false,
+            show_name: false,
+            // product states
+            datasetColor: "",
+            datasetSize: "",
+            cartList: [],
+            isAdded: false,
+            price: 0,
+            taxs: 0,
+            quantity: 0,
+            totalPrice: 0,
 
-    state = {
-        active_state: "Women",
-        show_dollar: false,
-        show_cart: false,
-        show_name: false,
-        // product states
-        datasetColor: "",
-        datasetSize: "",
-        cartList: [],
-        isAdded: false,
-        price: 0,
-        taxs: 0,
-        quantity: 0,
-        totalPrice: 0,
-
-        // Validation states
-        joiErrors: {},
-        registered: null,
-        isLoading: false,
-        formData: {},
-        formDataLogin: {},
-        isLoggedIn: false,
-        successLogin: false,
-        successSignUp: false,
-        successLogout: false,
-        welcome: false,
-    }
-    componentDidMount(){
-        localStorage.setItem("storageCartList", JSON.stringify(this.state.cartList)); 
-    }
-    componentDidUpdate(prevProps,prevState){
-        if(this.state)
-        console.log("prevProps => ",prevProps)
-        console.log("prevState => ",prevState)
+            // Validation states
+            joiErrors: {},
+            registered: null,
+            isLoading: false,
+            formData: {},
+            formDataLogin: {},
+            isLoggedIn: false,
+            successLogin: false,
+            successSignUp: false,
+            successLogout: false,
+            welcome: false,
+        }
+        this.questionsData = []
+        if (localStorage.getItem("storageCartList") !== null) {
+            this.questionsData = JSON.parse(localStorage.getItem("storageCartList"))
+        } else {
+            this.questionsData = []
+        }
     }
 
+    componentDidMount() {
+        this.setState({ cartList: [...this.questionsData] })
+        this.handlePrice()
+
+    }
+    componentDidUpdate(prevProps) {
+        if ((this.state.cartList !== prevProps.cartList) || (this.state.cartList?.quantity !== prevProps.cartList?.quantity)) {
+            localStorage.setItem("storageCartList", JSON.stringify(this.state.cartList));
+        }
+
+    }
 
     // ************Navbar Functions*********************
     handleActiveState = (e) => {
@@ -73,72 +79,97 @@ class StoreContextProvider extends Component {
     }
 
     // ************ProductDetails Functions*********************
-    handleActiveSize = (e) => {
-        this.setState({ datasetSize: e.target.dataset.size })
-    }
-    handleshadowColor = (e) => {
-        this.setState({ datasetColor: e.target.dataset.color })
-    }
+
+
     addToCart = (element, e) => {
-        let tempCartList = this.state.cartList
-        if (tempCartList.find(item => item.id === element.id) === undefined) {
-            toast.success("added to cart successfully")
-            const newElement = { ...element, quantity: 1, size: this.state.datasetSize, color: this.state.datasetColor }
-            this.setState(prevState => {
-                return { cartList: [...prevState.cartList, newElement] }
-
-            }, () => {
-                this.handlePrice()
-            })
-
+        if (element.size === null || element.color === null) {
+            toast.error("you must choose color and size")
         } else {
-            toast.info("already added to cart")
+            if (this.questionsData?.find(item => item.id === element.id) === undefined) {
+                const newElement = { ...element, quantity: 1 }
+                this.questionsData.push(newElement)
+                this.setState({ cartList: [...this.questionsData] }, () => { this.handlePrice() })
+                toast.success("added to cart successfully")
+            } else {
+                toast.info("already added to cart")
+            }
         }
+
     }
+
 
     handleQuantity = (item, operation) => {
-        let tempCartList = this.state.cartList
+        let tempCartList = this.state.cartList;
         const foundElement = tempCartList.find(el => el.id === item.id)
-        const indexElement = tempCartList.indexOf(foundElement)
-        const editedElement = tempCartList[indexElement]
         if (operation === "add") {
-            editedElement.quantity = editedElement.quantity + 1
-
+            foundElement.quantity = foundElement.quantity + 1
+            this.setState({ cartList: [...tempCartList] })
         } else {
-            if (editedElement.quantity <= 1) {
-                tempCartList = tempCartList.filter(el => el !== item)
+            if (foundElement.quantity <= 1) {
+                tempCartList = tempCartList.filter(el => el.id !== item.id)
                 this.setState(() => {
-                    return { cartList: tempCartList }
+                    return { cartList: [...tempCartList] }
                 }, () => {
                     this.handlePrice()
                 })
 
             } else {
-                editedElement.quantity = editedElement.quantity - 1
+                foundElement.quantity = foundElement.quantity - 1
+                this.setState({ cartList: [...tempCartList] })
             }
 
         }
-
-        this.setState({ cartList: tempCartList })
         this.handlePrice()
     }
+
+
+
     handlePrice = () => {
-        let tempCartList = this.state.cartList
-        let price = tempCartList.reduce((previous, current) => previous + (current.quantity * current.price), 0)
+        let price = [...this.questionsData].reduce((previous, current) => previous + (current.quantity * current.price), 0)
         let taxs = price * (21 / 100)
-        let numberOfItems = tempCartList.reduce((previous, current) => previous + current.quantity, 0)
+        let numberOfItems = [...this.questionsData].reduce((previous, current) => previous + current.quantity, 0)
         const totalPrice = price + taxs
         this.setState({ price, taxs, numberOfItems, totalPrice })
     }
     resetCart = () => {
         this.setState({ cartList: [], datasetColor: "", datasetSize: "", isAdded: false, price: 0, taxs: 0, quantity: 0, totalPrice: 0 })
     }
-    checkOut = () => {
+    checkOut = (e) => {
+        e.preventDefault()
         if (localStorage.getItem("userScandiwebCommerce")) {
-            // payment method
+            toast.info("Redirecting to Payment Page")
         } else {
             toast.error("You have to login first")
         }
+    }
+
+    handleshadowColor = (e, item, type) => {
+        let tempCartList = this.state.cartList;
+        if (type === "array") {
+            let foundElement = tempCartList.find(el => el.id === item.id)
+            foundElement.color = e.target.dataset.color
+            this.setState({ cartList: [...tempCartList] })
+        } else {
+            let foundElement = data.find(el => el.id === item.id)
+            foundElement.color = e.target.dataset.color
+            this.setState({ cartList: [...tempCartList] })
+        }
+
+    }
+
+
+    handleActiveSize = (e, item, type) => {
+        let tempCartList = this.state.cartList;
+        if (type === "array") {
+            let foundElement = tempCartList.find(el => el.id === item.id)
+            foundElement.size = e.target.dataset.size
+            this.setState({ cartList: [...tempCartList] })
+        } else {
+            let foundElement = data.find(el => el.id === item.id)
+            foundElement.size = e.target.dataset.size
+            this.setState({ cartList: [...tempCartList] })
+        }
+
     }
 
 
@@ -269,7 +300,7 @@ class StoreContextProvider extends Component {
     logout = () => {
         localStorage.removeItem("userScandiwebCommerce")
         this.setState({ welcome: false })
-        this.resetCart()
+
     }
 
 

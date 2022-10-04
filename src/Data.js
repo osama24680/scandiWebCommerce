@@ -27,6 +27,8 @@ export const data = [
         price: 50,
         type: "men",
         img: man1,
+        color:null,
+        size:null,
     },
     {
         id: 2,
@@ -34,6 +36,8 @@ export const data = [
         price: 50,
         type: "men",
         img: man2,
+        color:null,
+        size:null,
     },
     {
         id: 3,
@@ -41,6 +45,8 @@ export const data = [
         price: 50,
         type: "men",
         img: man3,
+        color:null,
+        size:null,
     },
     {
         id: 4,
@@ -48,6 +54,8 @@ export const data = [
         price: 50,
         type: "men",
         img: man4,
+        color:null,
+        size:null,
     },
     {
         id: 5,
@@ -55,6 +63,8 @@ export const data = [
         price: 50,
         type: "men",
         img: man5,
+        color:null,
+        size:null,
     },
     {
         id: 6,
@@ -62,6 +72,8 @@ export const data = [
         price: 50,
         type: "men",
         img: man6,
+        color:null,
+        size:null,
     },
     // ***********women****************
     {
@@ -70,6 +82,8 @@ export const data = [
         price: 50,
         type: "women",
         img: woman1,
+        color:null,
+        size:null,
     },
     {
         id: 8,
@@ -77,6 +91,8 @@ export const data = [
         price: 50,
         type: "women",
         img: woman2,
+        color:null,
+        size:null,
     },
     {
         id: 9,
@@ -84,6 +100,8 @@ export const data = [
         price: 50,
         type: "women",
         img: woman3,
+        color:null,
+        size:null,
     },
     {
         id: 10,
@@ -91,6 +109,8 @@ export const data = [
         price: 50,
         type: "women",
         img: woman4,
+        color:null,
+        size:null,
     },
     {
         id: 11,
@@ -98,6 +118,8 @@ export const data = [
         price: 50,
         type: "women",
         img: woman5,
+        color:null,
+        size:null,
     },
     {
         id: 12,
@@ -105,6 +127,8 @@ export const data = [
         price: 50,
         type: "women",
         img: woman6,
+        color:null,
+        size:null,
     },
     // ***********kids****************
     {
@@ -113,6 +137,8 @@ export const data = [
         price: 50,
         type: "kids",
         img: kid1,
+        color:null,
+        size:null,
     },
     {
         id: 14,
@@ -120,6 +146,8 @@ export const data = [
         price: 50,
         type: "kids",
         img: kid2,
+        color:null,
+        size:null,
     },
     {
         id: 15,
@@ -127,6 +155,8 @@ export const data = [
         price: 50,
         type: "kids",
         img: kid3,
+        color:null,
+        size:null,
     },
     {
         id: 16,
@@ -134,6 +164,8 @@ export const data = [
         price: 50,
         type: "kids",
         img: kid4,
+        color:null,
+        size:null,
     },
     {
         id: 17,
@@ -141,6 +173,8 @@ export const data = [
         price: 50,
         type: "kids",
         img: kid5,
+        color:null,
+        size:null,
     },
     {
         id: 18,
@@ -148,6 +182,8 @@ export const data = [
         price: 50,
         type: "kids",
         img: kid6,
+        color:null,
+        size:null,
     },
 
 ]
