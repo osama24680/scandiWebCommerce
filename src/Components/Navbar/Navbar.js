@@ -3,7 +3,7 @@ import "./Navbar.scss"
 import logo from "../../assets/logo.png"
 import cart from "../../assets/Cart.png"
 import { StoreContext } from "../../Context/Store"
-import { Link, Navigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
 export default class Navbar extends Component {
     userName = ""
@@ -15,28 +15,21 @@ export default class Navbar extends Component {
     }
     render() {
         const ctx = this.context
+        let x="Osama Megahed"
         return (
-
-
             <div className="container">
                 <div className="Navbar">
                     <ul className="categories">
-                        <li onClick={(e) => ctx.handleActiveState(e)}>
-                            <Link to="/home" className={` ${ctx.active_state === "Women" && "active__navbar"}`}>Women</Link>
-                        </li>
-                        <li onClick={(e) => ctx.handleActiveState(e)} >
-                            <Link to="/home" className={`${ctx.active_state === "Men" && "active__navbar"}`}>Men</Link>
-                        </li>
-                        <li onClick={(e) => ctx.handleActiveState(e)} >
-                            <Link to="/home" className={`${ctx.active_state === "Kids" && "active__navbar"}`}>Kids</Link>
-                        </li>
-
+                        {ctx.filterCategoriesData.map((cat, index) => (
+                            <li key={index} onClick={(e) => ctx.handleActiveState(e)}>
+                                <Link to="/home" className={`${ctx.active_state === cat.name && "active__navbar"}`}>{cat.name}</Link>
+                            </li>
+                        ))}
                     </ul>
                     <div className="logo">
                         <Link to="/cart">
                             <img src={logo} alt="" />
                         </Link>
-
                     </div>
                     <ul className="navbar__options">
                         <li className="nameOption">
@@ -44,11 +37,19 @@ export default class Navbar extends Component {
 
                         </li>
                         <li onClick={() => ctx.handleDollarShow()} >
-                            $
-                            <ul className={`${ctx.show_dollar === true && "show_dollar"}`}>
-                                <li>$ USD</li>
-                                <li>&euro; Euro</li>
-                                <li>&#165; JPY</li>
+                            {ctx.moneyType.icon} 
+                            {/* {ctx.moneyType === {} ? "$"  : ctx.moneyType.icon
+                            } */}
+                            <ul className={`prices ${ctx.show_dollar === true && "show_dollar"}`}>
+                                {ctx.currenciesData.map((item, index) => (
+                                    <li
+                                        key={index}
+                                        onClick={(e) => ctx.handleCurrencyHover(e)}
+                                        className={`${ctx.moneyType.type === item.label && "focus_currunt"}`}
+                                    >
+                                        {item.symbol} {item.label}
+                                    </li>
+                                ))}
                             </ul>
                         </li>
                         <li>
@@ -60,11 +61,11 @@ export default class Navbar extends Component {
                                     {ctx.cartList.map(item => (
                                         <div className="Cart__elements-element" key={item.id}>
                                             <div className="Cart__elements-element-leftSide">
-                                                <h3>{item.title.split(" ")[0]}</h3>
-                                                <h2>{item.title.split(" ")[1]} {item.title.split(" ")[2]}</h2>
+                                                <h3>{item.name.split(" ")[0]}</h3>
+                                                <h2>{item.name.split(" ")[1]} {item.name.split(" ")[2]}</h2>
 
                                                 <div className="ProductDetails__details-divPrice">
-                                                    <p>${item.price.toFixed(2)}</p>
+                                                    {/* <p>${item.price.toFixed(2)}</p> */}
                                                 </div>
 
                                                 <div className="ProductDetails__details-divSizes">
@@ -149,7 +150,7 @@ export default class Navbar extends Component {
                                     </div>
                                     <div className="buttonsCartNav">
                                         <Link to="cart" onClick={() => ctx.handleCartShow()}>view bag</Link>
-                                        <a href="" onClick={(e)=>ctx.checkOut(e)}>check out</a>
+                                        <a href="" onClick={(e) => ctx.checkOut(e)}>check out</a>
                                     </div>
                                 </div>
                             </ul>
@@ -163,7 +164,7 @@ export default class Navbar extends Component {
                         ) : (
                             <li onClick={() => ctx.logout()}><Link to="/">Logout</Link></li>
                         )}
-                            
+
                     </ul>
                 </div>
                 <ToastContainer />

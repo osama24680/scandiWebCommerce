@@ -14,7 +14,7 @@
         ;
 
         div {
-            width: 50%;
+            width: 80%;
             cursor: pointer;
 
             img {
@@ -84,28 +84,39 @@
 
             ul {
                 display: flex;
-                width: 30%;
+                width: 50%;
                 justify-content: space-between;
                 margin: 15px 0;
-
-                :nth-child(1) {
-                    background-color: red;
-                }
-
-                :nth-child(2) {
-                    background-color: gold;
-                }
-
-                :nth-child(3) {
-                    background-color: aqua;
-                }
-
+                
                 li {
 
                     width: 30px;
                     height: 30px;
                     cursor: pointer;
 
+                }
+            }
+        }
+
+        .ProductDetails__details-divCapacity {
+            margin-top: 20px;
+
+            p {
+                font-style: normal;
+                font-weight: 800;
+                font-size: 18px;
+            }
+
+            ul {
+                display: flex;
+                width: 50%;
+                justify-content: space-between;
+                margin: 15px 0;
+
+                li {
+                    border: 2px solid var(--black);
+                    padding: .7rem 1rem;
+                    cursor: pointer;
                 }
             }
         }

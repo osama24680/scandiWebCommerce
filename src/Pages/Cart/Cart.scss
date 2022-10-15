@@ -1,5 +1,6 @@
 .Cart {
     padding-bottom: 50px;
+
     h1 {
         font-style: normal;
         font-weight: 700;
@@ -34,7 +35,15 @@
                     font-size: 30px;
                 }
 
-                .ProductDetails__details-divPrice {
+
+
+
+                .allAttributes {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 25px 0;
+                    width: 45%;
+
                     p {
                         font-style: normal;
                         font-weight: 800;
@@ -42,82 +51,37 @@
                         margin-top: 12px;
                     }
 
-                }
-
-                .ProductDetails__details-divSizes {
-                    margin-top: 20px;
-
-                    p {
-                        font-style: normal;
-                        font-weight: 800;
-                        font-size: 18px;
-                    }
-
-                    ul {
+                    .AttributesOfElement {
                         display: flex;
-                        width: 50%;
-                        justify-content: space-between;
-                        margin: 15px 0;
+                        margin: 25px 0 !important;
 
-                        :first-child {
-                            margin-left: 0px;
-                        }
-
-                        li {
+                        .ProductDetails__details {
                             border: 2px solid var(--black);
                             width: 120px;
                             height: 40px;
                             cursor: pointer;
-                            margin-left: 10px;
+                            margin-left: 15px;
                             display: flex;
                             justify-content: center;
                             align-items: center;
                         }
-                    }
-                }
 
-                .ProductDetails__details-divColors {
-                    margin-top: 20px;
-
-                    p {
-                        font-style: normal;
-                        font-weight: 800;
-                        font-size: 18px;
-                    }
-
-                    ul {
-                        display: flex;
-                        width: 20%;
-                        justify-content: space-between;
-                        margin: 15px 0;
-
-                        :nth-child(1) {
-                            background-color: red;
-                        }
-
-                        :nth-child(2) {
-                            background-color: gold;
-                        }
-
-                        :nth-child(3) {
-                            background-color: aqua;
-                        }
-
-                        li {
-
-                            width: 30px;
-                            height: 30px;
-                            cursor: pointer;
-
+                        :first-child {
+                            margin: 0 !important;
                         }
                     }
                 }
+
+
+
+
+
             }
 
             .Cart__elements-element-rightSide {
                 display: flex;
                 justify-content: flex-end;
-                
+
                 .Cart__elements-icons {
                     display: flex;
                     flex-direction: column;
@@ -125,6 +89,7 @@
                     justify-content: space-between;
                     align-items: center;
                     margin-right: 20px;
+
                     span {
                         font-size: 30px;
                         width: 40px;
@@ -135,7 +100,8 @@
                         align-items: center;
                         cursor: pointer;
                     }
-                    p{
+
+                    p {
                         font-size: 25px;
                     }
 
@@ -159,6 +125,7 @@
         padding-top: 20px;
         color: var(--black);
         font-family: 'Raleway';
+
         p {
             margin-top: 10px;
 
@@ -166,7 +133,8 @@
                 font-weight: bold;
             }
         }
-        button{
+
+        button {
             margin-top: 20px;
             width: 20%;
             border: none;

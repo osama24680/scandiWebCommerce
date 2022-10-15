@@ -4,21 +4,27 @@ import { toast } from 'react-toastify';
 import { data } from "../Data"
 import joi from "joi"
 import axios from "axios"
-// import { Navigate, useNavigate, Redirect } from "react-router-dom";
-import { Redirect } from 'wouter';
-import { Navigate } from "react-router-dom"
+import { request, gql } from 'graphql-request'
 
-export const StoreContext = createContext(0)
+export const StoreContext = createContext("default")
 
 
 class StoreContextProvider extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            active_state: "Women",
+            active_state: "all",
             show_dollar: false,
             show_cart: false,
             show_name: false,
+            currenciesData: [],
+            filterCategoriesData: [],
+            ProductsTypesDataAll: [],
+            ProductsTypesDataClothes: [],
+            ProductsTypesDataTech: [],
+            priceDefaultType: "USD",
+            priceDefaultIcon: "$",
+            moneyType: { type: "USD", icon: "$" },
             // product states
             datasetColor: "",
             datasetSize: "",
@@ -28,7 +34,8 @@ class StoreContextProvider extends Component {
             taxs: 0,
             quantity: 0,
             totalPrice: 0,
-
+            productDetailsData: {},
+            attributeOfStates: [],
             // Validation states
             joiErrors: {},
             registered: null,
@@ -41,25 +48,119 @@ class StoreContextProvider extends Component {
             successLogout: false,
             welcome: false,
         }
+
+        this.graphQL_API = "http://localhost:4000/graphql"
+
+
         this.questionsData = []
         if (localStorage.getItem("storageCartList") !== null) {
             this.questionsData = JSON.parse(localStorage.getItem("storageCartList"))
         } else {
             this.questionsData = []
         }
+
+        this.CurruncyTypesData = {}
+        if (localStorage.getItem("StorageCurruncyTypesData") !== null) {
+            this.CurruncyTypesData = JSON.parse(localStorage.getItem("StorageCurruncyTypesData"))
+        } else {
+            this.CurruncyTypesData = this.state.moneyType
+        }
+
+
+        this.arrayOfAttributes = []
+        if (localStorage.getItem("storage_arrayOfAttributes") !== null) {
+            this.arrayOfAttributes = JSON.parse(localStorage.getItem("storage_arrayOfAttributes"))
+        } else {
+            this.arrayOfAttributes = []
+        }
+
+
+        this.product_types = gql`
+            query getAllUsers{
+                categories{
+                    products{
+                        id,
+                        name,
+                        gallery ,
+                        prices{
+                            amount,
+                            currency{
+                                label
+                                symbol
+                            }
+                        },
+                 }
+                }
+            }
+        `
+        this.currencieCategories = gql`
+            query currencies{
+                currencies{
+                    label,
+                    symbol,
+                }
+        }
+        `
+        this.filterCategories = gql`
+            query categories{
+                categories{
+                name
+                }
+        }
+        `
+        this.ProductItem = gql`
+            query GetProduct($id:String!){
+                product(id:$id){
+                    id,
+                    name,
+                    inStock
+                    gallery ,
+                    description,
+                    category,
+                    attributes{
+                        id
+                        name
+                        type 
+                        items {
+                            displayValue
+                            value
+                            id
+                        }
+                    } 
+                    prices{
+                        amount,
+                        currency{
+                            label
+                            symbol
+                        }
+                    },
+                    brand,
+                }
+}
+        `
     }
+
 
     componentDidMount() {
         this.setState({ cartList: [...this.questionsData] })
+        this.setState({ moneyType: { ...this.CurruncyTypesData } })
+        this.setState({ attributeOfStates: { ...this.arrayOfAttributes } })
         this.handlePrice()
-
+        this.fetchCurrencies()
+        this.fetchfilterCategories()
+        this.fetchProductsTypes()
+        this.fetchProductDetails(JSON.parse(localStorage.getItem("StorageProductID")))
     }
+
     componentDidUpdate(prevProps) {
         if ((this.state.cartList !== prevProps.cartList) || (this.state.cartList?.quantity !== prevProps.cartList?.quantity)) {
             localStorage.setItem("storageCartList", JSON.stringify(this.state.cartList));
         }
-
+        if (this.state.moneyType !== prevProps.moneyType) {
+            localStorage.setItem("StorageCurruncyTypesData", JSON.stringify(this.state.moneyType));
+        }
     }
+
 
     // ************Navbar Functions*********************
     handleActiveState = (e) => {
@@ -77,16 +178,53 @@ class StoreContextProvider extends Component {
         this.setState({ show_name: !this.state.show_name })
         this.setState({ show_dollar: false, show_cart: false })
     }
-
+    handleCurrencyHover = (e) => {
+        this.CurruncyTypesData = {
+            type: e.target.textContent.split(" ")[1],
+            icon: e.target.textContent.split(" ")[0],
+        }
+        this.setState({ moneyType: { ...this.CurruncyTypesData } })
+    }
+    fetchCurrencies = async () => {
+        const { currencies } = await request(this.graphQL_API, this.currencieCategories)
+        this.setState({ currenciesData: currencies })
+    }
+    fetchfilterCategories = async () => {
+        const { categories } = await request(this.graphQL_API, this.filterCategories)
+        this.setState({ filterCategoriesData: categories })
+    }
+    fetchProductsTypes = async () => {
+        const { categories } = await request(this.graphQL_API, this.product_types)
+        this.setState({
+            ProductsTypesDataAll: categories[0].products,
+            ProductsTypesDataClothes: categories[1].products,
+            ProductsTypesDataTech: categories[2].products
+        })
+    }
     // ************ProductDetails Functions*********************
 
-
     addToCart = (element, e) => {
-        if (element.size === null || element.color === null) {
-            toast.error("you must choose color and size")
+
+        let newObject = {}
+        let newArray = []
+        if (localStorage.getItem("choosenColor")) {
+            newObject.color = JSON.parse(localStorage.getItem("choosenColor"))
+            newArray.push(JSON.parse(localStorage.getItem("choosenColor")))
+        }
+        if (localStorage.getItem("choosenSize")) {
+            newObject.size = JSON.parse(localStorage.getItem("choosenSize"))
+            newArray.push(JSON.parse(localStorage.getItem("choosenSize")))
+        }
+        if (localStorage.getItem("choosenCapacity")) {
+            newObject.capacity = JSON.parse(localStorage.getItem("choosenCapacity"))
+            newArray.push(JSON.parse(localStorage.getItem("choosenCapacity")))
+        }
+
+        if (Object.keys(newObject).length !== element.attributes.length) {
+            toast.error("select all the options of product")
         } else {
             if (this.questionsData?.find(item => item.id === element.id) === undefined) {
-                const newElement = { ...element, quantity: 1 }
+                const newElement = { ...element, quantity: 1, ...newObject, newArray }
                 this.questionsData.push(newElement)
                 this.setState({ cartList: [...this.questionsData] }, () => { this.handlePrice() })
                 toast.success("added to cart successfully")
@@ -96,10 +234,10 @@ class StoreContextProvider extends Component {
         }
 
     }
-
-
     handleQuantity = (item, operation) => {
-        let tempCartList = this.state.cartList;
+        // let tempCartList = this.state.cartList;
+        let tempCartList = this.questionsData;
+        console.log(tempCartList);
         const foundElement = tempCartList.find(el => el.id === item.id)
         if (operation === "add") {
             foundElement.quantity = foundElement.quantity + 1
@@ -121,9 +259,6 @@ class StoreContextProvider extends Component {
         }
         this.handlePrice()
     }
-
-
-
     handlePrice = () => {
         let price = [...this.questionsData].reduce((previous, current) => previous + (current.quantity * current.price), 0)
         let taxs = price * (21 / 100)
@@ -143,33 +278,41 @@ class StoreContextProvider extends Component {
         }
     }
 
-    handleshadowColor = (e, item, type) => {
-        let tempCartList = this.state.cartList;
-        if (type === "array") {
-            let foundElement = tempCartList.find(el => el.id === item.id)
-            foundElement.color = e.target.dataset.color
-            this.setState({ cartList: [...tempCartList] })
-        } else {
-            let foundElement = data.find(el => el.id === item.id)
-            foundElement.color = e.target.dataset.color
-            this.setState({ cartList: [...tempCartList] })
-        }
 
+
+    handleSizeOfDetails = (e, element, item) => {
+        localStorage.setItem("choosenID", JSON.stringify(element.id))
+        localStorage.setItem("choosenSize", JSON.stringify(e.target.dataset.size))
+        let value = localStorage.getItem("choosenSize")
+        // console.log(value.slice(1, value.length - 1))
+        // console.log(item.value)
+        this.arrayOfAttributes.push(localStorage.getItem("choosenSize"))
+
+        // this.setState((prev) => ({
+        //     ...prev, attributeOfStates: [...this.arrayOfAttributes]
+        // }))
+    }
+    handleColorOfDetails = (e, item) => {
+        localStorage.setItem("choosenID", JSON.stringify(item.id))
+        localStorage.setItem("choosenColor", JSON.stringify(e.target.dataset.color))
+        this.arrayOfAttributes.push(localStorage.getItem("choosenColor"))
+    }
+    handleCapacityOfDetails = (e, item) => {
+        localStorage.setItem("choosenID", JSON.stringify(item.id))
+        localStorage.setItem("choosenCapacity", JSON.stringify(e.target.dataset.capacity))
+        this.arrayOfAttributes.push(localStorage.getItem("choosenCapacity"))
     }
 
 
-    handleActiveSize = (e, item, type) => {
-        let tempCartList = this.state.cartList;
-        if (type === "array") {
-            let foundElement = tempCartList.find(el => el.id === item.id)
-            foundElement.size = e.target.dataset.size
-            this.setState({ cartList: [...tempCartList] })
-        } else {
-            let foundElement = data.find(el => el.id === item.id)
-            foundElement.size = e.target.dataset.size
-            this.setState({ cartList: [...tempCartList] })
-        }
 
+
+
+    fetchProductDetails = async (item_id) => {
+        const { product } = await request(this.graphQL_API, this.ProductItem, { id: item_id })
+        this.TempItemDetails = { ...product }
+        // this.setState({ productDetailsData: { ...this.TempItemDetails } })
+        this.setState({ productDetailsData: { ...product } })
+        localStorage.setItem("StorageProductID", JSON.stringify(product.id));
     }
 
 
@@ -305,17 +448,26 @@ class StoreContextProvider extends Component {
 
 
     render() {
+
+
+
         const {
-            active_state, show_dollar, show_cart, show_name,
-            datasetSize, datasetColor, cartList, isAdded, price, taxs, numberOfItems, totalPrice,
+            active_state, show_dollar, show_cart, show_name, currenciesData, filterCategoriesData, ProductsTypesDataAll,
+            ProductsTypesDataClothes, ProductsTypesDataTech, priceDefaultType, priceDefaultIcon, moneyType, productDetailsData,
+
+            datasetSize, datasetColor, cartList, isAdded, price, taxs, numberOfItems, totalPrice, attributeOfStates,
+
             joiErrors, registered, isLoading, formData, formDataLogin, isLoggedIn, successSignUp, successLogin, successLogout, welcome
         } = this.state
 
 
 
         const {
-            handleActiveState, handleDollarShow, handleNameShow,
-            handleCartShow, handleActiveSize, handleshadowColor, addToCart, addItemQuantity, removeItemQuantity, handleQuantity,
+            handleActiveState, handleDollarShow, handleNameShow, handleCurrencyHover,
+
+            handleCartShow, handleAttributesOfDetails, handleshadowColor, addToCart, addItemQuantity, removeItemQuantity, handleQuantity,
+            fetchProductDetails, handleSizeOfDetails, handleCapacityOfDetails, handleColorOfDetails, productDetailsData2,
+
             handleInput, HandleSubmit, handleInputLogin, handleSubmitLogin, logout, checkOut,
         } = this
         const values = {
@@ -323,13 +475,22 @@ class StoreContextProvider extends Component {
             show_dollar,
             show_cart,
             show_name,
-
+            currenciesData,
+            filterCategoriesData,
+            ProductsTypesDataAll,
+            ProductsTypesDataClothes,
+            ProductsTypesDataTech,
+            priceDefaultType,
+            handleCurrencyHover,
+            priceDefaultIcon,
+            moneyType,
             handleActiveState,
             handleDollarShow,
             handleCartShow,
             handleNameShow,
 
-            handleActiveSize,
+
+            handleAttributesOfDetails,
             datasetSize,
             datasetColor,
             handleshadowColor,
@@ -343,6 +504,15 @@ class StoreContextProvider extends Component {
             taxs,
             numberOfItems,
             totalPrice,
+            fetchProductDetails,
+            productDetailsData,
+            productDetailsData2,
+            handleSizeOfDetails,
+            handleColorOfDetails,
+            handleCapacityOfDetails,
+            attributeOfStates,
+
+
 
             joiErrors,
             registered,
@@ -361,9 +531,10 @@ class StoreContextProvider extends Component {
             welcome,
             checkOut,
 
-        }
 
+        }
         return (
+
             <StoreContext.Provider value={values}>
                 {this.props.children}
             </StoreContext.Provider>

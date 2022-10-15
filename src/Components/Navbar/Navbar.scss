@@ -60,6 +60,9 @@
             color: var(--black);
             position: relative;
 
+            .prices{
+                overflow: auto;
+            }
             ul {
                 position: absolute;
                 background-color: var(--white);
@@ -302,4 +305,8 @@
 
 .show_cart {
     display: block !important
+}
+.focus_currunt{
+    background-color: var(--gray);
+    border-bottom: 3px solid var(--primary__color);
 }

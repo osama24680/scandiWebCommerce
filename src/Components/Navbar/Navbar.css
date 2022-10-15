@@ -56,6 +56,10 @@
   position: relative;
 }
 
+.Navbar .navbar__options li .prices {
+  overflow: auto;
+}
+
 .Navbar .navbar__options li ul {
   position: absolute;
   background-color: var(--white);
@@ -286,4 +290,9 @@
 
 .show_cart {
   display: block !important;
+}
+
+.focus_currunt {
+  background-color: var(--gray);
+  border-bottom: 3px solid var(--primary__color);
 }

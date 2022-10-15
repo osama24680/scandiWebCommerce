@@ -37,78 +37,38 @@
   font-size: 30px;
 }
 
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divPrice p {
+.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 0;
+  width: 45%;
+}
+
+.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes p {
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
   margin-top: 12px;
 }
 
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divSizes {
-  margin-top: 20px;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divSizes p {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 18px;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divSizes ul {
+.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes .AttributesOfElement {
   display: flex;
-  width: 50%;
-  justify-content: space-between;
-  margin: 15px 0;
+  margin: 25px 0 !important;
 }
 
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divSizes ul :first-child {
-  margin-left: 0px;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divSizes ul li {
+.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes .AttributesOfElement .ProductDetails__details {
   border: 2px solid var(--black);
   width: 120px;
   height: 40px;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divColors {
-  margin-top: 20px;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divColors p {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 18px;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divColors ul {
-  display: flex;
-  width: 20%;
-  justify-content: space-between;
-  margin: 15px 0;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divColors ul :nth-child(1) {
-  background-color: red;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divColors ul :nth-child(2) {
-  background-color: gold;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divColors ul :nth-child(3) {
-  background-color: aqua;
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .ProductDetails__details-divColors ul li {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
+.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes .AttributesOfElement :first-child {
+  margin: 0 !important;
 }
 
 .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-rightSide {

@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 export default class Cart extends Component {
     render() {
         const ctx = this.context
+        console.log(ctx.cartList[0]?.newObject)
         return (
             <>
                 <div className="Cart container">
@@ -13,14 +14,62 @@ export default class Cart extends Component {
                         {ctx.cartList.map(item => (
                             <div className="Cart__elements-element" key={item.id}>
                                 <div className="Cart__elements-element-leftSide">
-                                    <h3>{item.title.split(" ")[0]}</h3>
-                                    <h2>{item.title.split(" ")[1]} {item.title.split(" ")[2]}</h2>
+                                    <h3>{item.name.split(" ")[0]}</h3>
+                                    <h2>{item.name.split(" ")[1]} {item.name.split(" ")[2]}</h2>
 
                                     <div className="ProductDetails__details-divPrice">
-                                        <p>${item.price.toFixed(2)}</p>
+                                        {/* <p>${item.price.toFixed(2)}</p> */}
                                     </div>
 
-                                    <div className="ProductDetails__details-divSizes">
+
+                                    {/* 
+                                    <div className="ProductDetails__details-divColors">
+                                            {attr.name === "Color" && (
+                                                <>
+                                                    <p>{attr.name}:</p>
+                                                    <ul>
+                                                        {attr.items.map((item, index) => (
+                                                            <li
+                                                                key={index}
+                                                                onClick={(e) => ctx.handleColorOfDetails(e, element)}
+                                                                data-color={item.value}
+                                                                className={`${element.color === "red" && "shadowActive"} ${item.value}`}
+                                                                style={{ backgroundColor: `${item.value}` }}
+                                                            >
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </>
+                                            )}
+                                        </div> */}
+                                    <div className="allAttributes">
+                                        {item.attributes.map((attr, index) => (
+                                            <>
+                                                <p>{attr.name}</p>
+                                                <div className="AttributesOfElement" key={index}>
+                                                    {attr.items.map((attrElement, index) => {
+                                                        {/* console.log(item.newArray)
+                                                        console.log(attrElement.value ) */}
+                                                        return (
+                                                            <span
+                                                                name={attrElement.value}
+                                                                data-color={attrElement.value}
+                                                                onClick={(e) => ctx.handleColorOfDetails(e, item)}
+                                                                // className={`ProductDetails__details ${attrElement.color === "red" && "shadowActive"} ${item.value}`}
+                                                                className={`ProductDetails__details ${item.newArray?.map(el => el === `${attrElement.value}` && "shadowActive")} ${item.value}`}
+                                                                style={{ backgroundColor: `${attrElement.value}` }}
+                                                            >
+                                                                {attrElement.value.includes("#") ? "" : attrElement.value}
+                                                            </span>
+                                                        )
+                                                    })}
+                                                </div>
+                                            </>
+
+                                        ))}
+                                    </div>
+
+                                    {/* <div className="ProductDetails__details-divSizes">
                                         <p>SIZE:</p>
                                         <ul>
                                             <li
@@ -79,7 +128,7 @@ export default class Cart extends Component {
 
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> */}
 
                                 </div>
 
@@ -90,16 +139,13 @@ export default class Cart extends Component {
                                         <span onClick={() => ctx.handleQuantity(item, "remove")}>-</span>
                                     </div>
                                     <div className="Cart__elements__mainImg">
-                                        <img src={item.img} alt="" />
+                                        <img src={item.gallery[0]} alt="" />
                                     </div>
                                 </div>
                             </div>
                         ))}
 
                     </div>
-
-
-
 
                     <div className="Cart__elements-total">
                         <p>Price:<span> ${ctx.price}</span>  </p>

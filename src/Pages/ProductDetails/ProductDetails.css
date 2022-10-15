@@ -13,7 +13,7 @@
 }
 
 .ProductDetails .ProductDetails__models div {
-  width: 50%;
+  width: 80%;
   cursor: pointer;
 }
 
@@ -82,26 +82,37 @@
 
 .ProductDetails .ProductDetails__details .ProductDetails__details-divColors ul {
   display: flex;
-  width: 30%;
+  width: 50%;
   justify-content: space-between;
   margin: 15px 0;
-}
-
-.ProductDetails .ProductDetails__details .ProductDetails__details-divColors ul :nth-child(1) {
-  background-color: red;
-}
-
-.ProductDetails .ProductDetails__details .ProductDetails__details-divColors ul :nth-child(2) {
-  background-color: gold;
-}
-
-.ProductDetails .ProductDetails__details .ProductDetails__details-divColors ul :nth-child(3) {
-  background-color: aqua;
 }
 
 .ProductDetails .ProductDetails__details .ProductDetails__details-divColors ul li {
   width: 30px;
   height: 30px;
+  cursor: pointer;
+}
+
+.ProductDetails .ProductDetails__details .ProductDetails__details-divCapacity {
+  margin-top: 20px;
+}
+
+.ProductDetails .ProductDetails__details .ProductDetails__details-divCapacity p {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.ProductDetails .ProductDetails__details .ProductDetails__details-divCapacity ul {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.ProductDetails .ProductDetails__details .ProductDetails__details-divCapacity ul li {
+  border: 2px solid var(--black);
+  padding: .7rem 1rem;
   cursor: pointer;
 }
 
