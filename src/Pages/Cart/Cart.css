@@ -29,12 +29,7 @@
   font-weight: 800;
   font-size: 30px;
   color: var(--black);
-}
-
-.Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide h2 {
-  font-weight: normal;
-  margin-top: 10px;
-  font-size: 30px;
+  margin-bottom: 20px;
 }
 
 .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes {

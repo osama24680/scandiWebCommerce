@@ -10,6 +10,7 @@ class ProductDetails extends Component {
         localStorage.removeItem('choosenSize')
         localStorage.removeItem('choosenColor')
         localStorage.removeItem('choosenCapacity')
+
     }
     componentDidMount() {
 
@@ -30,8 +31,8 @@ class ProductDetails extends Component {
 
         // console.log(myClass, myId);
         // console.log(doc);
-        console.log(element)
-        console.log(ctx.cartList)
+        // console.log(element.attributes[0].items[0].value)
+
 
 
         return (
@@ -53,67 +54,23 @@ class ProductDetails extends Component {
                             <>
                                 {element.attributes.map((attr, index) => (
                                     <div key={index}>
-
-                                        <div className="ProductDetails__details-divSizes">
-                                            {attr.name === "Size" && (
-                                                <>
-                                                    <p>{attr.name}:</p>
-                                                    <ul>
-                                                        {attr.items.map((item, index) => (
-                                                            <li
-                                                                key={index}
-                                                                onClick={(e) => ctx.handleSizeOfDetails(e, element, item)}
-                                                                className={`${localStorage.getItem("choosenSize") === item.value && "borderActive"}`}
-                                                                data-size={item.value}
-                                                            >
-                                                                {item.value}
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </>
-                                            )}
-                                        </div>
-
-
-                                        <div className="ProductDetails__details-divColors">
-                                            {attr.name === "Color" && (
-                                                <>
-                                                    <p>{attr.name}:</p>
-                                                    <ul>
-                                                        {attr.items.map((item, index) => (
-                                                            <li
-                                                                key={index}
-                                                                onClick={(e) => ctx.handleColorOfDetails(e, element)}
-                                                                data-color={item.value}
-                                                                className={`${element.color === "red" && "shadowActive"} ${item.value}`}
-                                                                style={{ backgroundColor: `${item.value}` }}
-                                                            >
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </>
-                                            )}
-                                        </div>
-
-                                        <div className="ProductDetails__details-divCapacity">
-                                            {attr.name === "Capacity" && (
-                                                <>
-                                                    <p>{attr.name}:</p>
-                                                    <ul>
-                                                        {attr.items.map((item, index) => (
-                                                            <li
-                                                                key={index}
-                                                                onClick={(e) => ctx.handleCapacityOfDetails(e, element)}
-                                                                data-capacity={item.value}
-                                                            // className={`${element.size === "xs" && "borderActive"}`}
-                                                            >
-                                                                {item.value}
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </>
-                                            )}
-
+                                        <div className="ProductDetails__details-divDetails">
+                                            <p>{attr.name}:</p>
+                                            <ul>
+                                                {attr.items.map((item, index) => {
+                                                    return (
+                                                        <li
+                                                            key={index}
+                                                            onClick={(e) => ctx.handlePorductAttributesDetails( attr, item)}
+                                                            data-valuename={item.value}
+                                                            className={`${item.value === ctx.secondAttributes[attr.name] && "shadowActive"} ${item.value}`}
+                                                            style={{ backgroundColor: `${item.value.includes("#") ? item.value : ""}` }}
+                                                        >
+                                                            {item.value.includes("#") ? "" : item.value}
+                                                        </li>
+                                                    )
+                                                })}
+                                            </ul>
                                         </div>
 
                                     </div>

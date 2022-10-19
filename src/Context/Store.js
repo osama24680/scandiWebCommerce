@@ -25,6 +25,7 @@ class StoreContextProvider extends Component {
             priceDefaultType: "USD",
             priceDefaultIcon: "$",
             moneyType: { type: "USD", icon: "$" },
+            symbol: "$",
             // product states
             datasetColor: "",
             datasetSize: "",
@@ -36,6 +37,10 @@ class StoreContextProvider extends Component {
             totalPrice: 0,
             productDetailsData: {},
             attributeOfStates: [],
+            secondAttributes: [],
+
+
+
             // Validation states
             joiErrors: {},
             registered: null,
@@ -50,7 +55,8 @@ class StoreContextProvider extends Component {
         }
 
         this.graphQL_API = "http://localhost:4000/graphql"
-
+        this.ArrayForAttr = []
+        this.secondObject = {}
 
         this.questionsData = []
         if (localStorage.getItem("storageCartList") !== null) {
@@ -158,7 +164,9 @@ class StoreContextProvider extends Component {
         }
         if (this.state.moneyType !== prevProps.moneyType) {
             localStorage.setItem("StorageCurruncyTypesData", JSON.stringify(this.state.moneyType));
+
         }
+
     }
 
 
@@ -183,7 +191,7 @@ class StoreContextProvider extends Component {
             type: e.target.textContent.split(" ")[1],
             icon: e.target.textContent.split(" ")[0],
         }
-        this.setState({ moneyType: { ...this.CurruncyTypesData } })
+        this.setState({ moneyType: { ...this.CurruncyTypesData } }, () => { this.handlePrice() })
     }
     fetchCurrencies = async () => {
         const { currencies } = await request(this.graphQL_API, this.currencieCategories)
@@ -220,12 +228,12 @@ class StoreContextProvider extends Component {
             newArray.push(JSON.parse(localStorage.getItem("choosenCapacity")))
         }
 
-        if (Object.keys(newObject).length !== element.attributes.length) {
+        if (Object.keys(this.state.secondAttributes).length !== element.attributes.length) {
             toast.error("select all the options of product")
         } else {
             if (this.questionsData?.find(item => item.id === element.id) === undefined) {
-                const newElement = { ...element, quantity: 1, ...newObject, newArray }
-                this.questionsData.push(newElement)
+                const newElement = { ...element, quantity: 1, selectedAttributes: this.state.secondAttributes }
+                this.questionsData.unshift(newElement)
                 this.setState({ cartList: [...this.questionsData] }, () => { this.handlePrice() })
                 toast.success("added to cart successfully")
             } else {
@@ -233,38 +241,58 @@ class StoreContextProvider extends Component {
             }
         }
 
+
     }
     handleQuantity = (item, operation) => {
-        // let tempCartList = this.state.cartList;
-        let tempCartList = this.questionsData;
-        console.log(tempCartList);
+        let tempCartList = this.state.cartList;
+        // let tempCartList = this.questionsData;
         const foundElement = tempCartList.find(el => el.id === item.id)
         if (operation === "add") {
             foundElement.quantity = foundElement.quantity + 1
-            this.setState({ cartList: [...tempCartList] })
+            this.setState({ cartList: [...tempCartList] }, () => this.handlePrice())
         } else {
-            if (foundElement.quantity <= 1) {
+            if (foundElement.quantity === 1) {
                 tempCartList = tempCartList.filter(el => el.id !== item.id)
-                this.setState(() => {
-                    return { cartList: [...tempCartList] }
-                }, () => {
-                    this.handlePrice()
-                })
+                this.setState({ cartList: [...tempCartList] }, () => { this.handlePrice("empty") })
+
 
             } else {
                 foundElement.quantity = foundElement.quantity - 1
-                this.setState({ cartList: [...tempCartList] })
+                this.setState({ cartList: [...tempCartList] }, () => this.handlePrice())
             }
 
         }
         this.handlePrice()
     }
-    handlePrice = () => {
-        let price = [...this.questionsData].reduce((previous, current) => previous + (current.quantity * current.price), 0)
-        let taxs = price * (21 / 100)
-        let numberOfItems = [...this.questionsData].reduce((previous, current) => previous + current.quantity, 0)
-        const totalPrice = price + taxs
-        this.setState({ price, taxs, numberOfItems, totalPrice })
+    handlePrice = (s = "default") => {
+        let allPrices = []
+        let singlePrice = null
+        let price = 0
+        let real_price = 0
+        let taxs = 0
+        let numberOfItems = 0
+        let totalPrice = 0
+
+        if (s === "default") {
+            for (let item of this.questionsData) {
+                singlePrice = item.prices.find(item => item.currency?.symbol === this.state.moneyType.icon)
+                allPrices.push(singlePrice)
+                price += (singlePrice.amount * item.quantity)
+            }
+
+            real_price = Number(price.toFixed(2))
+            taxs = (real_price * (21 / 100)).toFixed(2)
+            numberOfItems = [...this.questionsData].reduce((previous, current) => previous + current.quantity, 0)
+            totalPrice = (real_price + Number(taxs)).toFixed(2)
+            let symbol = JSON.parse(localStorage.getItem('StorageCurruncyTypesData')).icon
+            this.setState({ price: real_price, taxs, numberOfItems, totalPrice, symbol })
+
+        } else {
+            this.setState({ price: real_price, taxs, numberOfItems, totalPrice })
+            this.questionsData = []
+
+        }
+
     }
     resetCart = () => {
         this.setState({ cartList: [], datasetColor: "", datasetSize: "", isAdded: false, price: 0, taxs: 0, quantity: 0, totalPrice: 0 })
@@ -305,12 +333,26 @@ class StoreContextProvider extends Component {
 
 
 
+    handlePorductAttributesDetails = (attr, itemOfAttr) => {
+        let newObject = {}
+        newObject[attr.name] = itemOfAttr.value
+        this.secondObject = { ...this.secondObject, ...newObject }
+        this.setState({ secondAttributes: this.secondObject })
+    }
+
+
+    handleCartAttributesDetails = (attr, itemOfAttr, element) => {
+        let attrName = attr.name
+        let comingElement = this.questionsData.find(el => el.id === element.id)
+        let indexOfElement = this.questionsData.indexOf(comingElement)
+        this.questionsData[indexOfElement].selectedAttributes[attrName] = itemOfAttr.value
+        this.setState({ cartList: [...this.questionsData] })
+    }
 
 
     fetchProductDetails = async (item_id) => {
         const { product } = await request(this.graphQL_API, this.ProductItem, { id: item_id })
         this.TempItemDetails = { ...product }
-        // this.setState({ productDetailsData: { ...this.TempItemDetails } })
         this.setState({ productDetailsData: { ...product } })
         localStorage.setItem("StorageProductID", JSON.stringify(product.id));
     }
@@ -454,6 +496,7 @@ class StoreContextProvider extends Component {
         const {
             active_state, show_dollar, show_cart, show_name, currenciesData, filterCategoriesData, ProductsTypesDataAll,
             ProductsTypesDataClothes, ProductsTypesDataTech, priceDefaultType, priceDefaultIcon, moneyType, productDetailsData,
+            secondAttributes, symbol,
 
             datasetSize, datasetColor, cartList, isAdded, price, taxs, numberOfItems, totalPrice, attributeOfStates,
 
@@ -468,7 +511,8 @@ class StoreContextProvider extends Component {
             handleCartShow, handleAttributesOfDetails, handleshadowColor, addToCart, addItemQuantity, removeItemQuantity, handleQuantity,
             fetchProductDetails, handleSizeOfDetails, handleCapacityOfDetails, handleColorOfDetails, productDetailsData2,
 
-            handleInput, HandleSubmit, handleInputLogin, handleSubmitLogin, logout, checkOut,
+            handleInput, HandleSubmit, handleInputLogin, handleSubmitLogin, logout, checkOut, handlePorductAttributesDetails,
+            handleCartAttributesDetails,
         } = this
         const values = {
             active_state,
@@ -488,7 +532,7 @@ class StoreContextProvider extends Component {
             handleDollarShow,
             handleCartShow,
             handleNameShow,
-
+            symbol,
 
             handleAttributesOfDetails,
             datasetSize,
@@ -511,7 +555,9 @@ class StoreContextProvider extends Component {
             handleColorOfDetails,
             handleCapacityOfDetails,
             attributeOfStates,
-
+            handlePorductAttributesDetails,
+            handleCartAttributesDetails,
+            secondAttributes,
 
 
             joiErrors,

@@ -128,7 +128,7 @@
 
                         .Cart__elements-element-leftSide {
                             text-align: left;
-                            width: 40%;
+                            width: 55%;
 
                             h3,
                             h2 {
@@ -137,82 +137,30 @@
                                 color: var(--black);
 
                             }
-
-                            .ProductDetails__details-divPrice {
-                                p {
-                                    font-style: normal;
-                                    margin-top: 8px;
-                                    font-weight: 500;
-                                    font-size: 16px;
-                                }
-
+                            p{
+                                margin-top: 5px;
                             }
 
-                            .ProductDetails__details-divSizes {
-                                margin-top: 10px;
-
-                                p {
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    font-size: 18px;
+                            .AttributesOfElement {
+                                display: flex;
+                                margin: 15px 0 !important;
+                                span{
+                                    font-size: 14px;
                                 }
-
-                                .listOfSizes {
+                                .ProductDetails__details {
+                                    border: 1px solid var(--black);
+                                    width: 80px;
+                                    height: 35px;
+                                    cursor: pointer;
+                                    margin-left: 5px;
                                     display: flex;
-                                    margin: 10px 0;
-
-                                    :first-child {
-                                        margin-left: 0px;
-                                    }
-
-                                    p {
-                                        border: 1px solid var(--black);
-                                        width: 25px;
-                                        height: 25px !important;
-                                        cursor: pointer;
-                                        margin-left: 10px;
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
-                                        font-size: 12px;
-                                    }
+                                    justify-content: center;
+                                    align-items: center;
+                                    padding: 0 !important;
                                 }
-                            }
-
-                            .ProductDetails__details-divColors {
-                                margin-top: 10px;
-
-                                p {
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    font-size: 18px;
-                                }
-
-                                .listOfColor {
-                                    display: flex;
-                                    // width: 20%;
-                                    justify-content: space-between;
-                                    margin: 15px 0 0 0;
-
-                                    :nth-child(1) {
-                                        background-color: red;
-                                    }
-
-                                    :nth-child(2) {
-                                        background-color: gold;
-                                    }
-
-                                    :nth-child(3) {
-                                        background-color: aqua;
-                                    }
-
-                                    p {
-
-                                        width: 25px;
-                                        height: 25px;
-                                        cursor: pointer;
-
-                                    }
+                        
+                                :first-child {
+                                    margin: 0 !important;
                                 }
                             }
                         }
@@ -220,7 +168,7 @@
                         .Cart__elements-element-rightSide {
                             display: flex;
                             justify-content: flex-end;
-                            width: 50%;
+                            width: 40%;
 
                             .Cart__elements-icons {
                                 display: flex;
@@ -255,7 +203,7 @@
 
                                 img {
                                     width: 100%;
-                                    height: 70%;
+                                   
                                 }
                             }
                         }
@@ -308,5 +256,23 @@
 }
 .focus_currunt{
     background-color: var(--gray);
-    border-bottom: 3px solid var(--primary__color);
+    border: 3px solid var(--primary__color);
+    box-shadow: 0px 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.allAttributes {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    width: 100%;
+
+    p {
+        font-style: normal;
+        font-weight: 800;
+        font-size: 16px;
+    }
+
+  
 }

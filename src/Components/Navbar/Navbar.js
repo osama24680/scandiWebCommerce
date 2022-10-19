@@ -6,6 +6,7 @@ import { StoreContext } from "../../Context/Store"
 import { Link } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
 export default class Navbar extends Component {
+
     userName = ""
     componentDidMount() {
         if (localStorage.getItem("userScandiwebCommerce")) {
@@ -13,9 +14,9 @@ export default class Navbar extends Component {
             this.userName = data.first_name
         }
     }
+
     render() {
         const ctx = this.context
-        let x="Osama Megahed"
         return (
             <div className="container">
                 <div className="Navbar">
@@ -37,9 +38,7 @@ export default class Navbar extends Component {
 
                         </li>
                         <li onClick={() => ctx.handleDollarShow()} >
-                            {ctx.moneyType.icon} 
-                            {/* {ctx.moneyType === {} ? "$"  : ctx.moneyType.icon
-                            } */}
+                            {ctx.moneyType.icon}
                             <ul className={`prices ${ctx.show_dollar === true && "show_dollar"}`}>
                                 {ctx.currenciesData.map((item, index) => (
                                     <li
@@ -58,95 +57,61 @@ export default class Navbar extends Component {
 
                                 <div className="Cart__elements">
                                     <h3 className='bag'><span>My Bag </span>{ctx.numberOfItems} items</h3>
-                                    {ctx.cartList.map(item => (
-                                        <div className="Cart__elements-element" key={item.id}>
-                                            <div className="Cart__elements-element-leftSide">
-                                                <h3>{item.name.split(" ")[0]}</h3>
-                                                <h2>{item.name.split(" ")[1]} {item.name.split(" ")[2]}</h2>
 
-                                                <div className="ProductDetails__details-divPrice">
-                                                    {/* <p>${item.price.toFixed(2)}</p> */}
-                                                </div>
 
-                                                <div className="ProductDetails__details-divSizes">
-                                                    <p>Size:</p>
-                                                    <div className="listOfSizes">
-                                                        <p
-                                                            onClick={(e) => ctx.handleActiveSize(e, item, "array")}
-                                                            className={`${item.size === "xs" && "borderActive"}`}
-                                                            data-size="xs"
-                                                        >
-                                                            XS
-                                                        </p>
-                                                        <p
-                                                            onClick={(e) => ctx.handleActiveSize(e, item, "array")}
-                                                            className={`${item.size === "s" && "borderActive"}`}
-                                                            data-size="s"
-                                                        >
-                                                            S
-                                                        </p>
-                                                        <p
-                                                            onClick={(e) => ctx.handleActiveSize(e, item, "array")}
-                                                            className={`${item.size === "m" && "borderActive"}`}
-                                                            data-size="m"
-                                                        >
-                                                            M
-                                                        </p>
-                                                        <p
-                                                            onClick={(e) => ctx.handleActiveSize(e, item, "array")}
-                                                            className={`${item.size === "l" && "borderActive"}`}
-                                                            data-size="l"
-                                                        >
-                                                            L
-                                                        </p>
+                                    {ctx.cartList.map(element => {
+                                        const filteredPrices = element.prices.find(item => item.currency?.symbol === ctx.moneyType.icon)
+                                        
+                                        return (
+                                            <div className="Cart__elements-element" key={element.id}>
+                                                <div className="Cart__elements-element-leftSide">
+                                                    <h3>{element.name.split(" ")[0]}</h3>
+                                                    <h2>{element.name.split(" ")[1]} {element.name.split(" ")[2]}</h2>
+                                                    <p>{filteredPrices.currency.symbol + " "+  filteredPrices.amount}</p>
+
+                                                    <div className="allAttributes">
+                                                        {element.attributes.map((attr, index) => (
+                                                            <div key={index}>
+                                                                <p>{attr.name}</p>
+                                                                <div className="AttributesOfElement" >
+                                                                    {attr.items.map((item, index) => {
+                                                                        return (
+                                                                            <span
+                                                                                key={index}
+                                                                                name={item.value}
+                                                                                data-color={item.value}
+                                                                                onClick={(e) => ctx.handleCartAttributesDetails(attr, item, element)}
+                                                                                className={`ProductDetails__details ${item.value === element.selectedAttributes[attr.name] && "shadowActive"} ${item.value}`}
+                                                                                style={{ backgroundColor: `${item.value}` }}
+                                                                            >
+                                                                                {item.value.includes("#") ? "" : item.value}
+                                                                            </span>
+                                                                        )
+                                                                    })}
+                                                                </div>
+                                                            </div>
+
+                                                        ))}
                                                     </div>
                                                 </div>
 
-                                                <div className="ProductDetails__details-divColors">
-                                                    <p>Color:</p>
-                                                    <div className="listOfColor">
-                                                        <p
-                                                            onClick={(e) => ctx.handleshadowColor(e, item, "array")}
-                                                            data-color="red"
-                                                            className={`${item.color === "red" && "shadowActive"}`}
-                                                        >
-
-                                                        </p>
-                                                        <p
-                                                            onClick={(e) => ctx.handleshadowColor(e, item, "array")}
-                                                            data-color="gold"
-                                                            className={`${item.color === "gold" && "shadowActive"}`}
-                                                        >
-
-                                                        </p>
-                                                        <p
-                                                            onClick={(e) => ctx.handleshadowColor(e, item, "array")}
-                                                            data-color="aqua"
-                                                            className={`${item.color === "aqua" && "shadowActive"}`}
-                                                        >
-
-                                                        </p>
+                                                <div className="Cart__elements-element-rightSide">
+                                                    <div className="Cart__elements-icons">
+                                                        <span onClick={() => ctx.handleQuantity(element, "add")}>+</span>
+                                                        <p>{element.quantity}</p>
+                                                        <span onClick={() => ctx.handleQuantity(element, "remove")}>-</span>
+                                                    </div>
+                                                    <div className="Cart__elements__mainImg">
+                                                        <img src={element.gallery[0]} alt="" />
                                                     </div>
                                                 </div>
-
                                             </div>
-
-                                            <div className="Cart__elements-element-rightSide">
-                                                <div className="Cart__elements-icons">
-                                                    <span onClick={() => ctx.handleQuantity(item, "add")}>+</span>
-                                                    <p>{item.quantity}</p>
-                                                    <span onClick={() => ctx.handleQuantity(item, "remove")}>-</span>
-                                                </div>
-                                                <div className="Cart__elements__mainImg">
-                                                    <img src={item.img} alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
+                                        )
+                                    })}
 
                                     <div className="totalCartNav">
                                         <p>Total</p>
-                                        <p>$ {ctx.totalPrice}</p>
+                                        <p>Total: <span>{ctx.symbol} {ctx.totalPrice} </span> </p>
                                     </div>
                                     <div className="buttonsCartNav">
                                         <Link to="cart" onClick={() => ctx.handleCartShow()}>view bag</Link>
