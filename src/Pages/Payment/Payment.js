@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./Payment.scss"
 import { StoreContext } from "../../Context/Store"
-import { Link,Navigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 class Payment extends Component {
     componentWillUnmount() {
         localStorage.removeItem("is_payment")
@@ -10,7 +10,6 @@ class Payment extends Component {
         this.singlePrice = null
         const ctx = this.context
         localStorage.setItem('is_payment', JSON.stringify("osama"))
-
 
         return (
             <>
@@ -71,7 +70,6 @@ class Payment extends Component {
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div>
                                         <label>Name on card</label>
