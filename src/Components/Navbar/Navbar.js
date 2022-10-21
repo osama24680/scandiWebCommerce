@@ -74,7 +74,7 @@ export default class Navbar extends Component {
                                                                                 key={index}
                                                                                 name={item.value}
                                                                                 data-color={item.value}
-                                                                                onClick={(e) => ctx.handleCartAttributesDetails(attr, item, element)}
+                                                                                // onClick={(e) => ctx.handleCartAttributesDetails(attr, item, element)}
                                                                                 className={` toClose ProductDetails__details ${item.value === element.selectedAttributes[attr.name] && "shadowActive"} ${item.value}`}
                                                                                 style={{ backgroundColor: `${item.value}` }}
                                                                             >
