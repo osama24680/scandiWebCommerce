@@ -173,3 +173,78 @@
 .payment .payment__form .payment__form-formInputs button:active {
   transform: scale(0.9);
 }
+
+@media (max-width: 770px) {
+  .payment {
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  .payment .payment__products {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  .payment .payment__products h2 {
+    color: var(--black);
+    font-size: 18px;
+  }
+  .payment .payment__products h1 {
+    color: var(--pink);
+    margin-top: 20px;
+    font-size: 30px;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element {
+    margin-top: 20px;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element .productImgDiv {
+    width: 100%;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element .productImgDiv img {
+    width: 30%;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element .productImgDiv p {
+    margin-left: 15px;
+    font-size: 18px;
+  }
+  .payment .payment__form {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+  .payment .payment__form h2 {
+    font-size: 20px;
+  }
+  .payment .payment__form .payment__form-formInputs div {
+    margin-top: 20px;
+  }
+  .payment .payment__form .payment__form-formInputs div label {
+    font-size: 13px;
+  }
+  .payment .payment__form .payment__form-formInputs div input::-webkit-outer-spin-button,
+  .payment .payment__form .payment__form-formInputs div input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+@media (max-width: 570px) {
+  .payment .payment__products h2 {
+    font-size: 15px;
+  }
+  .payment .payment__products h1 {
+    font-size: 25px;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element {
+    margin-top: 20px;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element .productImgDiv {
+    width: 100%;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element .productImgDiv img {
+    width: 30%;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element .productImgDiv p {
+    margin-left: 10px;
+    font-size: 13px;
+  }
+  .payment .payment__products .payment__products-productDetails .payment__products-productDetails-element .productImgDiv p span {
+    margin-top: 5px;
+  }
+}

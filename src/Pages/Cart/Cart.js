@@ -4,6 +4,7 @@ import { StoreContext } from "../../Context/Store"
 import { ToastContainer } from 'react-toastify';
 import { Link } from "react-router-dom"
 export default class Cart extends Component {
+
     render() {
         this.singlePrice = null
         const ctx = this.context

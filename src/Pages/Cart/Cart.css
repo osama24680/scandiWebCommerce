@@ -126,11 +126,96 @@
   outline: none;
   background-color: var(--primary__color);
   text-align: center;
+  margin: auto;
   padding: 0.9rem 4.5rem;
   cursor: pointer;
   text-transform: uppercase;
+  margin: 20px 0;
 }
 
 .Cart .Cart__elements-total button a {
   color: var(--white);
+}
+
+@media (max-width: 1024px) {
+  .Cart .Cart__elements-total button {
+    padding: 0.9rem 0rem;
+  }
+}
+
+@media (max-width: 770px) {
+  .Cart .Cart__elements-total button {
+    padding: 0.9rem 0rem;
+  }
+}
+
+@media (max-width: 570px) {
+  .Cart {
+    padding-bottom: 0px !important;
+  }
+  .Cart h1 {
+    font-size: 22px;
+    padding: 20px 15px 30px 15px;
+  }
+  .Cart .Cart__elements .Cart__elements-element {
+    padding: 20px 0;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide {
+    width: 50%;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes {
+    margin: 5px 0;
+    width: 100%;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes p {
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes .AttributesOfElement {
+    display: flex;
+    margin: 15px 0 !important;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-leftSide .allAttributes .AttributesOfElement .ProductDetails__details {
+    border: 1px solid var(--black);
+    width: 140px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-rightSide {
+    width: 40%;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-rightSide .Cart__elements-icons {
+    margin-right: 10px;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-rightSide .Cart__elements-icons span {
+    font-size: 18px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--black);
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-rightSide .Cart__elements-icons p {
+    font-size: 18px;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-rightSide .Cart__elements__mainImg {
+    width: 100%;
+  }
+  .Cart .Cart__elements .Cart__elements-element .Cart__elements-element-rightSide .Cart__elements__mainImg img {
+    width: 100%;
+  }
+  .Cart .Cart__elements-total {
+    padding-top: 10px;
+  }
+  .Cart .Cart__elements-total p {
+    margin-top: 8px;
+  }
+  .Cart .Cart__elements-total button {
+    width: 100%;
+    border: none;
+    outline: none;
+  }
 }

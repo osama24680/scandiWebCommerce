@@ -16,3 +16,15 @@
   text-align: center;
   row-gap: 4rem;
 }
+
+@media (max-width: 770px) {
+  .Home h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 570px) {
+  .Home h1 {
+    font-size: 22px;
+  }
+}

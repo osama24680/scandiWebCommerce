@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import "./ProductDetails.scss"
 import { StoreContext } from "../../Context/Store"
 import 'react-toastify/dist/ReactToastify.css';
+import { Interweave } from 'interweave';
 
 class ProductDetails extends Component {
     render() {
@@ -11,6 +12,8 @@ class ProductDetails extends Component {
 
         const parser = new DOMParser(); //convert XML to HTML
         const doc = parser.parseFromString(element.description, 'text/html');
+
+        
 
         return (
             <div className="ProductDetails container" >
@@ -65,7 +68,7 @@ class ProductDetails extends Component {
                         </div>
 
                         <div className="ProductDetails__details-divDiscription">
-                            {doc.body.textContent}
+                            <Interweave content={element.description} />;
                         </div>
                     </div>
                 </>

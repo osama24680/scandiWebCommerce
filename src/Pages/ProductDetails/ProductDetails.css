@@ -143,3 +143,79 @@
   background-color: gray !important;
   cursor: context-menu !important;
 }
+
+@media (max-width: 770px) {
+  .ProductDetails {
+    margin: 2rem auto;
+    flex-wrap: wrap;
+  }
+  .ProductDetails .ProductDetails__models {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    order: 3;
+  }
+  .ProductDetails .ProductDetails__models div {
+    width: 30%;
+  }
+  .ProductDetails .ProductDetails__models div img {
+    width: 100%;
+  }
+  .ProductDetails .ProductDetails__mainImg {
+    width: 100%;
+  }
+  .ProductDetails .ProductDetails__mainImg img {
+    width: 100%;
+  }
+  .ProductDetails .ProductDetails__details {
+    width: 100%;
+  }
+  .ProductDetails .ProductDetails__details h3 {
+    margin-top: 10px;
+    font-size: 22px;
+  }
+  .ProductDetails .ProductDetails__details h2 {
+    margin-top: 10px;
+    font-size: 22px;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divDetails {
+    margin-top: 20px;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divDetails p {
+    font-size: 16px;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divDetails ul {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divDetails ul :first-child {
+    margin-left: 0;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divDetails ul li {
+    width: 20px;
+    height: 20px;
+    padding: 1rem 1rem;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divPrice p {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divButton {
+    margin: 25px 0;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divButton button {
+    width: 100%;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divDiscription {
+    width: 100%;
+  }
+  .ProductDetails .ProductDetails__details .ProductDetails__details-divDiscription p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 159.96%;
+  }
+}

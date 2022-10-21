@@ -149,3 +149,112 @@
     background-color: gray !important;
     cursor: context-menu !important;
 }
+
+
+@media(max-width:770px) {
+    .ProductDetails {
+
+        margin: 2rem auto;
+        flex-wrap: wrap;
+
+        .ProductDetails__models {
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            row-gap: 1rem;
+            order: 3;
+
+            div {
+                width: 30%;
+
+                img {
+                    width: 100%;
+
+                }
+            }
+        }
+
+        .ProductDetails__mainImg {
+            width: 100%;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .ProductDetails__details {
+            width: 100%;
+
+
+            h3 {
+                margin-top: 10px;
+                font-size: 22px;
+            }
+
+            h2 {
+                margin-top: 10px;
+                font-size: 22px;
+            }
+
+            .ProductDetails__details-divDetails {
+                margin-top: 20px;
+
+                p {
+                    font-size: 16px;
+                }
+
+                ul {
+                    display: flex;
+                    width: 50%;
+                    justify-content: space-between;
+                    margin: 15px 0;
+
+                    :first-child {
+                        margin-left: 0;
+                    }
+
+                    li {
+                        width: 20px;
+                        height: 20px;
+                        padding: 1rem 1rem;
+
+                    }
+                }
+            }
+
+
+            .ProductDetails__details-divPrice {
+                p {
+                    font-size: 16px;
+                    margin-top: 5px;
+                }
+
+
+            }
+
+            .ProductDetails__details-divButton {
+                margin: 25px 0;
+
+                button {
+                    width: 100%;
+
+                }
+            }
+
+            .ProductDetails__details-divDiscription {
+                width: 100%;
+
+                p {
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 159.96%;
+                }
+            }
+        }
+
+    }
+
+}
+
+

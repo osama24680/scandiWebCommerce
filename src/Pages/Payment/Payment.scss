@@ -13,109 +13,242 @@
     }
 }
 
-    .payment {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 50px;
+.payment {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
 
+
+    .payment__products {
+        width: 40%;
+        margin-bottom: 50px;
+
+        h2 {
+            color: var(--black);
+            font-size: 20px;
+        }
+
+        h1 {
+            color: var(--pink);
+            margin-top: 30px;
+        }
+
+        .payment__products-productDetails {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+
+            :first-child {
+                margin-top: 0px;
+            }
+
+            .payment__products-productDetails-element {
+                margin-top: 35px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .productImgDiv {
+                    width: 65%;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 25%;
+                    }
+
+                    p {
+                        margin-left: 20px;
+                        display: flex;
+                        flex-direction: column;
+
+                        span {
+                            margin-top: 10px;
+                            color: rgb(0, 0, 126)
+                        }
+                    }
+                }
+
+                .productPrice {
+                    color: var(--pink);
+                }
+            }
+        }
+
+
+    }
+
+    .payment__form {
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        width: 50%;
+        padding: 3rem 5rem;
+        height: 100%;
+
+        h2 {
+            color: var(--black);
+        }
+
+        .payment__form-formInputs {
+            display: flex;
+            flex-direction: column;
+
+            div {
+
+                margin-top: 30px;
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    font-size: 16px;
+                    color: rgb(0, 0, 126)
+                }
+
+                input {
+                    color: var(--pink);
+                    border: 2px solid var(--pink);
+                    border-radius: 10px;
+                    padding: 10px 25px;
+                    background: transparent;
+                    margin-top: 5px;
+
+                    &:active {
+                        box-shadow: 2px 2px 15px var(--pink) inset;
+                    }
+                }
+
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+
+                }
+
+
+            }
+
+            .Card_information {
+                display: flex;
+                flex-direction: column;
+
+                .cardPrivateData {
+                    margin-top: 0;
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+
+                    .inputGroup {
+                        margin: 0;
+                        width: 33%;
+
+                        input {
+                            width: 100%;
+
+                        }
+                    }
+
+
+                }
+            }
+
+            button {
+                margin-top: 30px;
+                background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+                border-radius: 8px;
+                box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+                color: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                line-height: 1em;
+                padding: 3px;
+                cursor: pointer;
+                transition: all .3s;
+
+                span {
+                    background-color: rgb(5, 6, 45);
+                    padding: 16px 24px;
+                    border-radius: 6px;
+                    width: 100%;
+                    height: 100%;
+                    transition: 300ms;
+                }
+
+                &:hover span {
+                    background: none;
+                }
+
+                &:active {
+                    transform: scale(.9);
+                }
+            }
+        }
+    }
+
+
+}
+
+@media(max-width:770px) {
+    .payment {
+        flex-direction: column;
+        margin-top: 30px;
 
         .payment__products {
-            width: 40%;
-            margin-bottom: 50px;
+            width: 100%;
+            padding: 0.5rem;
 
             h2 {
                 color: var(--black);
-                font-size: 20px;
+                font-size: 18px;
             }
 
             h1 {
                 color: var(--pink);
-                margin-top: 30px;
+                margin-top: 20px;
+                font-size: 30px;
             }
 
             .payment__products-productDetails {
 
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-direction: column;
-
-                :first-child {
-                    margin-top: 0px;
-                }
-
                 .payment__products-productDetails-element {
-                    margin-top: 35px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                    margin-top: 20px;
 
                     .productImgDiv {
-                        width: 65%;
-                        display: flex;
-                        align-items: center;
+                        width: 100%;
 
                         img {
-                            width: 25%;
+                            width: 30%;
                         }
 
                         p {
-                            margin-left: 20px;
-                            display: flex;
-                            flex-direction: column;
-
-                            span {
-                                margin-top: 10px;
-                                color: rgb(0, 0, 126)
-                            }
+                            margin-left: 15px;
+                            font-size: 18px;
                         }
-                    }
-
-                    .productPrice {
-                        color: var(--pink);
                     }
                 }
             }
-
 
         }
 
         .payment__form {
-            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-            width: 50%;
-            padding: 3rem 5rem;
-            height: 100%;
+            width: 100%;
+            padding: 1rem 2rem;
+
 
             h2 {
-                color: var(--black);
+                font-size: 20px;
             }
 
             .payment__form-formInputs {
-                display: flex;
-                flex-direction: column;
 
                 div {
 
-                    margin-top: 30px;
-                    display: flex;
-                    flex-direction: column;
+                    margin-top: 20px;
+
 
                     label {
-                        font-size: 16px;
-                        color: rgb(0, 0, 126)
-                    }
-
-                    input {
-                        color: var(--pink);
-                        border: 2px solid var(--pink);
-                        border-radius: 10px;
-                        padding: 10px 25px;
-                        background: transparent;
-                        margin-top: 5px;
-
-                        &:active {
-                            box-shadow: 2px 2px 15px var(--pink) inset;
-                        }
+                        font-size: 13px;
                     }
 
                     input::-webkit-outer-spin-button,
@@ -126,65 +259,55 @@
 
 
                 }
-
-                .Card_information {
-                    display: flex;
-                    flex-direction: column;
-
-                    .cardPrivateData {
-                        margin-top: 0;
-                        display: flex;
-                        flex-direction: row;
-                        width: 100%;
-
-                        .inputGroup {
-                            margin: 0;
-                            width: 33%;
-
-                            input {
-                                width: 100%;
-
-                            }
-                        }
-
-
-                    }
-                }
-
-                button {
-                    margin-top: 30px;
-                    background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
-                    border-radius: 8px;
-                    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-                    color: #FFFFFF;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 18px;
-                    line-height: 1em;
-                    padding: 3px;
-                    cursor: pointer;
-                    transition: all .3s;
-
-                    span {
-                        background-color: rgb(5, 6, 45);
-                        padding: 16px 24px;
-                        border-radius: 6px;
-                        width: 100%;
-                        height: 100%;
-                        transition: 300ms;
-                    }
-
-                    &:hover span {
-                        background: none;
-                    }
-
-                    &:active {
-                        transform: scale(.9);
-                    }
-                }
             }
         }
 
 
     }
+}
+
+
+@media(max-width:570px) {
+    .payment {
+
+        .payment__products {
+
+            h2 {
+                font-size: 15px;
+            }
+
+            h1 {
+
+                font-size: 25px;
+            }
+
+            .payment__products-productDetails {
+
+                .payment__products-productDetails-element {
+                    margin-top: 20px;
+
+                    .productImgDiv {
+                        width: 100%;
+
+                        img {
+                            width: 30%;
+                        }
+
+                        p {
+                            margin-left: 10px;
+                            font-size: 13px;
+
+                            span {
+                                margin-top: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        
+
+    }
+}

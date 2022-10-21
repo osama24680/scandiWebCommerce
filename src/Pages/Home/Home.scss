@@ -5,15 +5,33 @@
         font-size: 42px;
         line-height: 160%;
         margin-top: 30px;
-        color:var(--black)
+        color: var(--black)
     }
-    .all__products{
+
+    .all__products {
         display: flex;
         justify-content: space-between;
         width: 100%;
         flex-wrap: wrap;
-        margin:100px auto;
+        margin: 100px auto;
         text-align: center;
         row-gap: 4rem;
+    }
+}
+
+@media(max-width:770px) {
+    .Home {
+        h1 {
+            font-size: 32px;
+        }
+
+    }
+}
+@media(max-width:570px) {
+    .Home {
+        h1 {
+            font-size: 22px;
+        }
+
     }
 }

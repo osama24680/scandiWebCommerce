@@ -26,3 +26,23 @@
   margin-top: 5px;
   font-weight: 600;
 }
+
+@media (max-width: 770px) {
+  .ProductCart {
+    width: 40%;
+    margin: auto;
+  }
+  .ProductCart .productLink img {
+    margin: 0;
+  }
+  .ProductCart .productLink h3,
+  .ProductCart .productLink p {
+    margin: 10px 0 0 0;
+  }
+}
+
+@media (max-width: 570px) {
+  .ProductCart {
+    width: 70%;
+  }
+}

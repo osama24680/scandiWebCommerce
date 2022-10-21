@@ -137,9 +137,11 @@
             outline: none;
             background-color: var(--primary__color);
             text-align: center;
+            margin: auto;
             padding: 0.9rem 4.5rem;
             cursor: pointer;
             text-transform: uppercase;
+            margin: 20px 0;
 
             a {
                 color: var(--white);
@@ -147,4 +149,127 @@
         }
 
     }
+}
+
+@media(max-width:1024px) {
+    .Cart {
+        .Cart__elements-total {
+            button {
+                padding: 0.9rem 0rem;
+            }
+        }
+    }
+}
+@media(max-width:770px) {
+    .Cart {
+        .Cart__elements-total {
+            button {
+                padding: 0.9rem 0rem;
+            }
+        }
+    }
+}
+
+@media(max-width:570px) {
+
+    .Cart {
+        padding-bottom: 0px !important;
+
+        h1 {
+            font-size: 22px;
+            padding: 20px 15px 30px 15px;
+
+        }
+
+        .Cart__elements {
+
+
+            .Cart__elements-element {
+
+                padding: 20px 0;
+
+                .Cart__elements-element-leftSide {
+                    width: 50%;
+
+                    h3 {
+                        font-size: 16px;
+                        margin-bottom: 10px;
+                    }
+
+
+                    .allAttributes {
+                        margin: 5px 0;
+                        width: 100%;
+
+                        p {
+                            font-size: 16px;
+                            margin-top: 8px;
+                        }
+
+                        .AttributesOfElement {
+                            display: flex;
+                            margin: 15px 0 !important;
+
+                            .ProductDetails__details {
+                                border: 1px solid var(--black);
+                                width: 140px;
+                                height: 30px;
+                                cursor: pointer;
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                }
+
+                .Cart__elements-element-rightSide {
+
+                    width: 40%;
+
+                    .Cart__elements-icons {
+                        margin-right: 10px;
+
+                        span {
+                            font-size: 18px;
+                            width: 20px;
+                            height: 20px;
+                            border: 1px solid var(--black);
+
+                        }
+
+                        p {
+                            font-size: 18px;
+                        }
+
+                    }
+
+                    .Cart__elements__mainImg {
+                        width: 100%;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        .Cart__elements-total {
+            padding-top: 10px;
+
+
+            p {
+                margin-top: 8px;
+
+            }
+
+            button {
+                width: 100%;
+                border: none;
+                outline: none;
+            }
+
+        }
+    }
+
 }

@@ -28,3 +28,31 @@
         }
     }
 }
+
+@media(max-width:770px){
+    .ProductCart {
+        width: 40%;
+        margin: auto;
+    
+        .productLink {
+            img {
+                margin: 0;
+                
+            }
+    
+            h3,
+            p {
+                margin: 10px 0 0 0 ;
+            }
+
+
+        }
+    }
+}
+
+
+@media(max-width:570px){
+    .ProductCart {
+        width: 70%;    
+    }
+}
