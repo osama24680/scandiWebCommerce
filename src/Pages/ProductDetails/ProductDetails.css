@@ -14,7 +14,6 @@
 
 .ProductDetails .ProductDetails__models div {
   width: 80%;
-  cursor: pointer;
 }
 
 .ProductDetails .ProductDetails__models div img {
@@ -72,12 +71,13 @@
   width: 25px;
   height: 25px;
   border: 1px solid var(--black);
-  padding: 1.8rem 1.8rem;
+  padding: 1.2rem 1.4rem;
   cursor: pointer;
   justify-content: center;
   align-items: center;
   display: flex;
   margin-left: 10px;
+  font-size: .7rem;
 }
 
 .ProductDetails .ProductDetails__details .ProductDetails__details-divPrice p {

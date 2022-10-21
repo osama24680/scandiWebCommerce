@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import "./Home.scss"
 import Products from '../../Components/Products/Products'
 class Home extends Component {
-
     render() {
-
         return (
             <>
                 <div className="container">

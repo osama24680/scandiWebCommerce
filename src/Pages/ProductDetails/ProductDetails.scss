@@ -1,21 +1,17 @@
 .ProductDetails {
     display: flex;
     width: 90%;
-
     justify-content: space-between;
     margin: 4rem auto;
 
-    // align-items: center;
     .ProductDetails__models {
         width: 15%;
         display: flex;
         flex-direction: column;
         row-gap: 2rem;
-        ;
 
         div {
             width: 80%;
-            cursor: pointer;
 
             img {
                 width: 100%;
@@ -72,12 +68,13 @@
                     width: 25px;
                     height: 25px;
                     border: 1px solid var(--black);
-                    padding: 1.8rem 1.8rem;
+                    padding: 1.2rem 1.4rem;
                     cursor: pointer;
                     justify-content: center;
                     align-items: center;
                     display: flex;
                     margin-left: 10px;
+                    font-size: .7rem;
                 }
             }
         }

@@ -30,7 +30,7 @@
                     margin-bottom: 20px;
                 }
 
-            
+
 
 
 
@@ -136,11 +136,14 @@
             border: none;
             outline: none;
             background-color: var(--primary__color);
-            color: var(--white);
             text-align: center;
             padding: 0.9rem 4.5rem;
             cursor: pointer;
             text-transform: uppercase;
+
+            a {
+                color: var(--white);
+            }
         }
 
     }

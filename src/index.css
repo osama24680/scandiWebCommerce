@@ -8,6 +8,7 @@
   --heavy__gray: #8D8F9A;
   --borderGray:#E5E5E5;
   --light__green:#22382873;
+  --pink:#AF40FF
 
   
 }
@@ -54,4 +55,11 @@ ul {
 .container {
   width: 90%;
   margin: auto;
+}
+.inputError {
+  text-align: left;
+  width: 100%;
+  color: red;
+  font-size: .8rem;
+  margin-top: 3px;
 }

@@ -3,7 +3,6 @@ import "./ProductCart.scss"
 import { StoreContext } from "../../Context/Store"
 import { Link } from "react-router-dom"
 export default class ProductCart extends Component {
-
     render() {
         const ctx = this.context
         const { id, name, prices, gallery } = this.props.item
@@ -15,7 +14,6 @@ export default class ProductCart extends Component {
                     <h3>{name}</h3>
                     <p>{filteredPrices.currency.symbol} {filteredPrices.amount}</p>
                 </Link>
-
             </div>
         )
     }

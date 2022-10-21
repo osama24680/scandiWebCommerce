@@ -71,13 +71,6 @@
   outline: none;
 }
 
-.Register .Register__card .Register__card--formSide .Register__card--formSide-inputs .inputError {
-  text-align: left;
-  width: 100%;
-  color: red;
-  font-size: .8rem;
-}
-
 .Register .Register__card .Register__card--formSide .Register__card--formSide-inputs .FormBtn {
   padding: 0.6rem 2rem;
   font-size: 1.2rem;

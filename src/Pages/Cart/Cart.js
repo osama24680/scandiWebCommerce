@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import "./Cart.scss"
 import { StoreContext } from "../../Context/Store"
 import { ToastContainer } from 'react-toastify';
+import { Link } from "react-router-dom"
 export default class Cart extends Component {
     render() {
         this.singlePrice = null
-        this.allPrices = []
         const ctx = this.context
 
         return (
@@ -15,8 +15,6 @@ export default class Cart extends Component {
                     <div className="Cart__elements">
                         {ctx.cartList.map(element => {
                             this.singlePrice = element.prices.find(item => item.currency?.symbol === ctx.moneyType.icon)
-                            this.allPrices.push(this.singlePrice)
-
                             return (
                                 <div className="Cart__elements-element" key={element.id}>
                                     <div className="Cart__elements-element-leftSide">
@@ -70,9 +68,16 @@ export default class Cart extends Component {
                         <p>tax 21%: <span> {ctx.symbol} {ctx.taxs}</span>  </p>
                         <p>Quantity: <span> {ctx.numberOfItems}</span>  </p>
                         <p>Total: <span>{ctx.symbol} {ctx.totalPrice} </span> </p>
-                        <button onClick={(e) => ctx.checkOut(e)}>Order</button>
-                    </div>
+                        <button onClick={(e) => ctx.checkOut(e)}>
 
+                            {ctx.checkOutSuccess ? (
+                                <Link to="/payment" >Order</Link>
+                            ) : (
+                                // eslint-disable-next-line
+                                <a href="" >Order</a>
+                            )}
+                        </button>
+                    </div>
                 </div>
                 <ToastContainer />
             </>
