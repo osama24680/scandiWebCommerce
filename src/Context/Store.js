@@ -237,7 +237,8 @@ class StoreContextProvider extends Component {
         if (Object.keys(this.state.secondAttributes).length !== element.attributes.length) {
             toast.error("select all the options of product")
         } else {
-            if (this.questionsData?.find(item => item.id === element.id) === undefined) {
+            let wantedElement = this.questionsData?.find(item => item.id === element.id)
+            if (wantedElement === undefined) {
                 const newElement = { ...element, quantity: 1, selectedAttributes: this.state.secondAttributes }
                 this.questionsData.unshift(newElement)
                 this.setState({ cartList: [...this.questionsData] }, () => { this.handlePrice() })
@@ -246,7 +247,29 @@ class StoreContextProvider extends Component {
                 toast.success("added to cart successfully")
 
             } else {
-                toast.info("already added to cart")
+                let AttrLength = wantedElement.attributes.length
+                let counter = 0;
+
+                for (let elObject in this.state.secondAttributes) {
+                    for (let selAttr in wantedElement.selectedAttributes) {
+                        if (this.state.secondAttributes[elObject] === wantedElement.selectedAttributes[selAttr]) {
+                            counter++;
+                        }
+                    }
+                }
+
+                if (AttrLength === counter) {
+                    toast.info("element added with the same attributes")
+                } else {
+                    const newElement = { ...element, quantity: 1, selectedAttributes: this.state.secondAttributes, id: element.id + (Math.random() * 50).toFixed(2) }
+                    this.questionsData.unshift(newElement)
+                    this.setState({ cartList: [...this.questionsData] }, () => { this.handlePrice() })
+                    this.setState({ secondAttributes: [] })
+                    this.secondObject = {}
+                    toast.success("added to cart successfully")
+
+                }
+
             }
         }
     }
