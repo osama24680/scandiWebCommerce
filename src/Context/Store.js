@@ -43,6 +43,8 @@ class StoreContextProvider extends Component {
         }
 
         this.graphQL_API = "http://localhost:4000/graphql"
+        // this.graphQL_API = "http://localhost:4000/graphql"
+        // this.graphQL_API = "/graphql"
         this.secondObject = {}
 
 

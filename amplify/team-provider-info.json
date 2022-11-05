@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify5337cb79d2924-staging-173427-authRole",
+      "UnauthRoleArn": "arn:aws:iam::147866743089:role/amplify-amplify5337cb79d2924-staging-173427-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::147866743089:role/amplify-amplify5337cb79d2924-staging-173427-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-amplify5337cb79d2924-staging-173427-deployment",
+      "UnauthRoleName": "amplify-amplify5337cb79d2924-staging-173427-unauthRole",
+      "StackName": "amplify-amplify5337cb79d2924-staging-173427",
+      "StackId": "arn:aws:cloudformation:us-east-1:147866743089:stack/amplify-amplify5337cb79d2924-staging-173427/190fc270-5d30-11ed-a15e-0a527121583b",
+      "AmplifyAppId": "d39x5t4mgkdxlr"
+    },
+    "categories": {
+      "auth": {
+        "scandiwebcommerceb92a537c": {}
+      }
+    }
+  }
+}
