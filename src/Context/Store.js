@@ -42,7 +42,8 @@ class StoreContextProvider extends Component {
             paymentData: {}, joiErrorsPayment: {}, successPayment: false,
         }
 
-        this.graphQL_API = "http://localhost:4000/graphql"
+        // this.graphQL_API = " https://scandiwen6.herokuapp.com/graphql"
+        this.graphQL_API = "scandiwen6.herokuapp.com"
         // this.graphQL_API = "http://localhost:4000/graphql"
         // this.graphQL_API = "/graphql"
         this.secondObject = {}
